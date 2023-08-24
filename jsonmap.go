@@ -56,6 +56,9 @@ func (mapper *JSONMap) MarshalJSON() ([]byte, error) {
 	if destVal.Kind() == reflect.Ptr && destVal.Elem().Kind() == reflect.Struct {
 		return mapper.marshalStruct(typeKey, destVal.Elem())
 	}
+	if destVal.Kind() == reflect.Struct {
+		return mapper.marshalStruct(typeKey, destVal)
+	}
 	return nil, fmt.Errorf("not struct pointer or slice")
 }
 
