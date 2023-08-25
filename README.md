@@ -25,12 +25,12 @@ func main() {
 
     var animal = new(Animal)
     _ = json.Unmarshal([]byte(text), jsonmap.Wrap(animal))
-    fmt.Println(animal)
+    fmt.Printf("%+v\n", animal)
 
-    // Animal{Type: 2}
+    // &Animal{Type: 2}
 
     res, _ := json.MarshalIndent(jsonmap.Wrap(animal), "", "    ")
-    fmt.Println(res)
+    fmt.Println(string(res))
 
     // {"type": "cow"}
 }
