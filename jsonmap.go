@@ -205,3 +205,15 @@ func (mapper *JSONMap) marshalStruct(typeKey uintptr, destVal reflect.Value) ([]
 	buf.WriteByte('}')
 	return buf.Bytes(), nil
 }
+
+func Unmarshal(data []byte, v any) error {
+	return json.Unmarshal(data, Wrap(v))
+}
+
+func Marshal(v any) ([]byte, error) {
+	return json.Marshal(Wrap(v))
+}
+
+func MarshalIndent(v any, prefix, indent string) ([]byte, error) {
+	return json.MarshalIndent(Wrap(v), prefix, indent)
+}
