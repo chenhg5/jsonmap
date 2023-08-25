@@ -1,4 +1,4 @@
-module jsonmap
+module github.com/chenhg5/jsonmap
 
 go 1.21.0
 
