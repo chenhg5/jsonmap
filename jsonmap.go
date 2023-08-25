@@ -20,7 +20,7 @@ type JSONMap struct {
 	cache map[uintptr]map[int]map[string]string
 }
 
-func MapJSON(val interface{}) *JSONMap {
+func Wrap(val interface{}) *JSONMap {
 	return &JSONMap{Val: val, cache: make(map[uintptr]map[int]map[string]string)}
 }
 
@@ -115,7 +115,7 @@ func (mapper *JSONMap) unmarshalStruct(typeKey uintptr, result gjson.Result, des
 			jsonMapTag, exist := field.Tag.Lookup(jsonMapTagKey)
 			if exist {
 				if jsonMapTag == "" {
-					tmpMapper := MapJSON(fieldValue.Addr().Interface())
+					tmpMapper := Wrap(fieldValue.Addr().Interface())
 					err := json.Unmarshal([]byte(jsonFieldData), tmpMapper)
 					if err != nil {
 						return err
@@ -172,7 +172,7 @@ func (mapper *JSONMap) marshalStruct(typeKey uintptr, destVal reflect.Value) ([]
 			if !exist {
 				val = destVal.Field(j).Interface()
 			} else if jsonMapTag == "" {
-				val = MapJSON(destVal.Field(j).Interface())
+				val = Wrap(destVal.Field(j).Interface())
 			} else {
 				pairs := strings.Split(jsonMapTag, ";")
 				jsonmap = make(map[string]string)
