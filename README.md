@@ -16,15 +16,15 @@ import (
 func main() {
 
     var text = `{
-		"type": "cow"
-	}`
+        "type": "cow"
+    }`
 
-	type Animal struct {
-		Type uint8 `json:"type" jsonmap:"0:dog;1:cat;2:cow;3:others"`
-	}
+    type Animal struct {
+        Type uint8 `json:"type" jsonmap:"0:dog;1:cat;2:cow;3:others"`
+    }
 
-	var animal = new(Animal)
-	_ = json.Unmarshal([]byte(text), jsonmap.Wrap(animal))
+    var animal = new(Animal)
+    _ = json.Unmarshal([]byte(text), jsonmap.Wrap(animal))
     fmt.Println(animal)
 
     // Animal{Type: 2}
@@ -34,6 +34,4 @@ func main() {
 
     // {"type": "cow"}
 }
-
-
 ```
